@@ -16,15 +16,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final SocketService _socketService = SocketService();
+
   @override
   void initState() {
-    SocketService().initialize(context);
     super.initState();
+    _socketService.initialize(context);
   }
 
   @override
   void dispose() {
-    SocketService().disconnect();
+    _socketService.disconnect();
     super.dispose();
   }
 
