@@ -12,8 +12,30 @@ class SocketService {
 
   Future<void> initialize(context) async {
     // await dotenv.load();
-    socket = io.io("ws://localhost:3000",
-        io.OptionBuilder().setTransports(['websocket']).build());
+    try {
+      log('Attempting to connect to socket...');
+
+      socket = io.io(
+          "https://sandbox.liquidlab.in", // Use http or https, NOT ws://
+          io.OptionBuilder()
+              .setTransports(['websocket'])
+              .enableForceNew()
+              .setPath("/ticketless")
+              .setReconnectionAttempts(3)
+              .setReconnectionDelay(5000)
+              .build());
+
+      // Connection status logs
+      socket.onConnect((_) => log('✅ Socket connected successfully'));
+      socket.onConnectError((err) => log('❌ Socket connection error: $err'));
+      socket.onDisconnect((_) => log('⚠️ Socket disconnected'));
+      socket.onReconnect((_) => log('🔄 Socket reconnecting...'));
+
+      socket.connect();
+    } catch (e) {
+      log('🔥 Exception in socket connection: $e');
+      rethrow;
+    }
 
     // important. identifies the device uniquely
     socket.emit("register_device",
