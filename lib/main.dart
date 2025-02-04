@@ -9,6 +9,7 @@ import 'package:ticketless_parking_display/providers/config_provider.dart';
 import 'package:ticketless_parking_display/screens/config_screen.dart';
 import 'package:ticketless_parking_display/screens/login_screen.dart';
 import 'package:ticketless_parking_display/data/api.dart';
+import 'package:ticketless_parking_display/data/socket.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,8 +41,7 @@ class _MyAppState extends State<MyApp> {
       child: Builder(
         builder: (context) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Provider.of<ConfigProvider>(context, listen: false)
-                .initializeAuth();
+            SocketService().initialize(context);
           });
 
           return MaterialApp(

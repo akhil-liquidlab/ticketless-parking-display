@@ -8,7 +8,7 @@ import 'package:ticketless_parking_display/utils/enums.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SocketService {
-  late io.Socket socket;
+  io.Socket? socket;
 
   Future<void> initialize(context) async {
     // await dotenv.load();
@@ -16,38 +16,38 @@ class SocketService {
       log('Attempting to connect to socket...');
 
       socket = io.io(
-          "https://sandbox.liquidlab.in", // Use http or https, NOT ws://
+          "wss://sandbox.liquidlab.in", // Use http or https, NOT ws://
           io.OptionBuilder()
               .setTransports(['websocket'])
               .enableForceNew()
-              .setPath("/ticketless")
+              // .setPath("/ticketless")
               .setReconnectionAttempts(3)
               .setReconnectionDelay(5000)
               .build());
 
       // Connection status logs
-      socket.onConnect((_) => log('✅ Socket connected successfully'));
-      socket.onConnectError((err) => log('❌ Socket connection error: $err'));
-      socket.onDisconnect((_) => log('⚠️ Socket disconnected'));
-      socket.onReconnect((_) => log('🔄 Socket reconnecting...'));
+      // socket.onConnect((_) => log('✅ Socket connected successfully'));
+      // socket.onConnectError((err) => log('❌ Socket connection error: $err'));
+      // socket.onDisconnect((_) => log('⚠️ Socket disconnected'));
+      // socket.onReconnect((_) => log('🔄 Socket reconnecting...'));
 
-      socket.connect();
+      socket?.connect();
     } catch (e) {
       log('🔥 Exception in socket connection: $e');
       rethrow;
     }
 
     // important. identifies the device uniquely
-    socket.emit("register_device",
+    socket?.emit("register_device",
         [Provider.of<ConfigProvider>(context, listen: false).deviceId]);
 
-    socket.onConnect(
+    socket?.onConnect(
       (data) {
         // log('socket connected');
       },
     );
 
-    socket.on(
+    socket?.on(
       'event',
       (data) {
         log(data.toString());
@@ -58,7 +58,7 @@ class SocketService {
       },
     );
 
-    socket.on(
+    socket?.on(
       'error',
       (data) {
         log(data.toString());
@@ -69,7 +69,7 @@ class SocketService {
       },
     );
 
-    socket.on(
+    socket?.on(
       'failed',
       (data) {
         log(data.toString());
@@ -80,7 +80,7 @@ class SocketService {
       },
     );
 
-    socket.on(
+    socket?.on(
       'success',
       (data) {
         log(data.toString());
@@ -91,7 +91,7 @@ class SocketService {
       },
     );
 
-    socket.on(
+    socket?.on(
       'welcome',
       (data) {
         log(data.toString());
@@ -102,7 +102,7 @@ class SocketService {
       },
     );
 
-    socket.onDisconnect(
+    socket?.onDisconnect(
       (data) {
         // log('socket disconnected');
       },
@@ -110,6 +110,6 @@ class SocketService {
   }
 
   disconnect() {
-    socket.disconnect();
+    socket?.disconnect();
   }
 }
