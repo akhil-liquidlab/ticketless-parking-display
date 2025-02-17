@@ -71,7 +71,7 @@ class _TimerWidgetState extends State<TimerWidget> {
             child: IconButton(
               icon: Icon(Icons.settings, size: 32),
               onPressed: () {
-                Navigator.pushNamed(context, '/login');
+                Navigator.pushReplacementNamed(context, '/login');
               },
             ),
           ),

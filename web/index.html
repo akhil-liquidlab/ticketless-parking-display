@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -14,7 +15,8 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+  <!-- <base href="$FLUTTER_BASE_HREF"> -->
+  <base href="./">
   <!-- <base href="./"> -->
 
   <meta charset="UTF-8">
@@ -28,7 +30,7 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>Ticketless Parking Display</title>
   <link rel="manifest" href="manifest.json">
@@ -40,6 +42,7 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
+
 <body>
   <div id="loading">
     <style>
@@ -50,6 +53,7 @@
         padding: 0;
         position: fixed;
       }
+
       #loading {
         align-items: center;
         display: flex;
@@ -57,19 +61,20 @@
         justify-content: center;
         width: 100%;
       }
+
       #loading img {
         width: 80px;
       }
     </style>
     <h1>Loading...</h1>
   </div>
-  
+
   <script>
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
       var loading = document.querySelector('#loading');
-      
+
       // Add error handling
-      window.onerror = function(message, source, lineno, colno, error) {
+      window.onerror = function (message, source, lineno, colno, error) {
         console.error('Error:', message, 'at', source, ':', lineno);
         document.body.innerHTML += `<div style="color: red;">Loading error: ${message}</div>`;
       };
@@ -84,7 +89,7 @@
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
-        onEntrypointLoaded: async function(engineInitializer) {
+        onEntrypointLoaded: async function (engineInitializer) {
           try {
             loading.classList.add('main_done');
             const appRunner = await engineInitializer.initializeEngine({
@@ -102,4 +107,5 @@
     });
   </script>
 </body>
+
 </html>

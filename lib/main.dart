@@ -10,11 +10,11 @@ import 'package:ticketless_parking_display/screens/config_screen.dart';
 import 'package:ticketless_parking_display/screens/login_screen.dart';
 import 'package:ticketless_parking_display/data/api.dart';
 import 'package:ticketless_parking_display/data/socket.dart';
+import 'package:ticketless_parking_display/container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await LocalStorageService.initialize();
-  await APIServices.initialize();
+  await ServiceContainer.initialize();
   await dotenv.load();
 
   runApp(const MyApp());
@@ -40,10 +40,6 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Builder(
         builder: (context) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            SocketService().initialize(context);
-          });
-
           return MaterialApp(
             theme: AppTheme.getLightTheme(context),
             darkTheme: AppTheme.getDarkTheme(context),

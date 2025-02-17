@@ -8,7 +8,8 @@ enum ScreenDataType {
   FAILED,
   WARNING,
   ADVERTISMENT,
-  CONNECTION_MSG
+  CONNECTION_MSG,
+  REGISTRATION_SUCCESS
 }
 
 enum BarrierStatus { OPEN, CLOSED }

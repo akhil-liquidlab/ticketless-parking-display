@@ -129,10 +129,11 @@ class LoginScreen extends StatelessWidget {
                       ),
                       icon: Icon(Icons.arrow_back, color: AppColors.lightText),
                       label: Text("Go Back"),
-                      onPressed:
-                          configProvider.authState == AuthState.authenticating
-                              ? null
-                              : () => Navigator.pop(context),
+                      onPressed: configProvider.authState ==
+                              AuthState.authenticating
+                          ? null
+                          : () =>
+                              Navigator.pushReplacementNamed(context, '/home'),
                     ),
                   ],
                 ),
